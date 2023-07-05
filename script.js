@@ -53,3 +53,27 @@ console.log(jonas.species, matilda.species);
 
 console.log(jonas.hasOwnProperty('firstName'));
 console.log(jonas.hasOwnProperty('species'));
+
+console.log(jonas.__proto__);
+// Object.prototype ( top of prototype chain )
+console.log(jonas.__proto__.__proto__);
+console.log(jonas.__proto__.__proto__.__proto__);
+
+// constructor property will point back at person
+// console.log(Person.prototype.constructor);
+console.dir(Person.prototype.constructor);
+
+const arr = [1, 21, 1, 21, 321, 3, 4]; // new Array === []
+
+// this array doesn't have any method but it will herit these method from prototype
+
+// Array here is prototype
+console.log(arr.__proto__);
+console.log(arr.__proto__ === Array.prototype);
+console.log(arr.__proto__.__proto__);
+
+Array.prototype.unique = function () {
+  return [...new Set(this)];
+};
+
+console.log(arr.unique());
