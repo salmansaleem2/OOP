@@ -218,48 +218,82 @@
 
 // Inheritance between classes: ES6 Classes
 
-class PersonCl {
-  constructor(fullName, birthYear) {
-    this.fullName = fullName;
-    this.birthYear = birthYear;
-  }
+// class PersonCl {
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   }
 
-  // Methods will be added to .prototype property or instance method
+//   // Methods will be added to .prototype property or instance method
+//   calcAge() {
+//     console.log(2037 - this.birthYear);
+//   }
+//   greet() {
+//     console.log(`Hey ${this.firstName}`);
+//   }
+
+//   // Static Method
+//   static hey() {
+//     console.log('Hey there');
+//     console.log(this);
+//   }
+
+//   // Set a property that already exists
+//   set fullName(name) {
+//     console.log(name, 'name');
+//     if (name.includes(' ')) this._fullName = name;
+//     else alert(`${name} is not a full name!`);
+//   }
+//   get fullName() {
+//     return this._fullName;
+//   }
+// }
+
+// class StudentCl extends PersonCl {
+//   constructor(fullName, birthYear, course) {
+//     super(fullName, birthYear);
+//     this.course = course;
+//   }
+
+//   introduce() {
+//     console.log(`My name is ${this.fullName} and I study ${this.course}`);
+//   }
+// }
+// const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
+
+// martha.introduce();
+// martha.calcAge();
+
+// Inheritance between classes: Object.create
+
+const PersonProto = {
   calcAge() {
     console.log(2037 - this.birthYear);
-  }
-  greet() {
-    console.log(`Hey ${this.firstName}`);
-  }
+  },
 
-  // Static Method
-  static hey() {
-    console.log('Hey there');
-    console.log(this);
-  }
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
 
-  // Set a property that already exists
-  set fullName(name) {
-    console.log(name, 'name');
-    if (name.includes(' ')) this._fullName = name;
-    else alert(`${name} is not a full name!`);
-  }
-  get fullName() {
-    return this._fullName;
-  }
-}
+const steven = Object.create(PersonProto);
 
-class StudentCl extends PersonCl {
-  constructor(fullName, birthYear, course) {
-    super(fullName, birthYear);
-    this.course = course;
-  }
+const studentProto = Object.create(PersonProto);
+studentProto.init = function (firstName, birthYear, course) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.course = course;
+};
 
-  introduce() {
-    console.log(`My name is ${this.fullName} and I study ${this.course}`);
-  }
-}
-const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
+studentProto.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+  //   introduce() {
+  //     console.log(`My name is ${this.fullName} and I study ${this.course}`);
+};
 
-martha.introduce();
-martha.calcAge();
+// console.log(studentProto);
+// console.dir(studentProto);
+const jay = Object.create(studentProto);
+jay.init('Jay', 2010, 'Computer Science');
+jay.introduce();
+jay.calcAge();
