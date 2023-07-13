@@ -266,34 +266,70 @@
 
 // Inheritance between classes: Object.create
 
-const PersonProto = {
-  calcAge() {
-    console.log(2037 - this.birthYear);
-  },
+// const PersonProto = {
+//   calcAge() {
+//     console.log(2037 - this.birthYear);
+//   },
 
-  init(firstName, birthYear) {
-    this.firstName = firstName;
-    this.birthYear = birthYear;
-  },
-};
+//   init(firstName, birthYear) {
+//     this.firstName = firstName;
+//     this.birthYear = birthYear;
+//   },
+// };
 
-const steven = Object.create(PersonProto);
+// const steven = Object.create(PersonProto);
 
-const studentProto = Object.create(PersonProto);
-studentProto.init = function (firstName, birthYear, course) {
-  PersonProto.init.call(this, firstName, birthYear);
-  this.course = course;
-};
+// const studentProto = Object.create(PersonProto);
+// studentProto.init = function (firstName, birthYear, course) {
+//   PersonProto.init.call(this, firstName, birthYear);
+//   this.course = course;
+// };
 
-studentProto.introduce = function () {
-  console.log(`My name is ${this.firstName} and I study ${this.course}`);
-  //   introduce() {
-  //     console.log(`My name is ${this.fullName} and I study ${this.course}`);
-};
+// studentProto.introduce = function () {
+//   console.log(`My name is ${this.firstName} and I study ${this.course}`);
+//   //   introduce() {
+//   //     console.log(`My name is ${this.fullName} and I study ${this.course}`);
+// };
 
-// console.log(studentProto);
-// console.dir(studentProto);
-const jay = Object.create(studentProto);
-jay.init('Jay', 2010, 'Computer Science');
-jay.introduce();
-jay.calcAge();
+// // console.log(studentProto);
+// // console.dir(studentProto);
+// const jay = Object.create(studentProto);
+// jay.init('Jay', 2010, 'Computer Science');
+// jay.introduce();
+// jay.calcAge();
+
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+    this.movements = [];
+    this.locale = navigator.language;
+
+    console.log(`Thanks for opening an account,${owner}`);
+  }
+  // These method are interfaces of the Objectn  also call this api or Public interface
+  deposit(val) {
+    this.movements.push(val);
+  }
+  withdraw(val) {
+    this.deposit(-val);
+  }
+  approveLoan(val) {
+    return true;
+  }
+  requestLoan(val) {
+    if (this.withdraw(val)) {
+      this.deposit(val);
+      console.log('Load approved');
+    }
+  }
+}
+
+const acc1 = new Account('Jonas', 'Eur', 1111);
+
+acc1.deposit(250);
+acc1.withdraw(140);
+acc1.requestLoan(1000);
+acc1.approveLoan(1000);
+console.log(acc1);
