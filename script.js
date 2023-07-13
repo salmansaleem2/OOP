@@ -302,13 +302,17 @@ class Account {
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
-    this.pin = pin;
-    this.movements = [];
+    // Protected property
+    this._pin = pin;
+    this._movements = [];
     this.locale = navigator.language;
 
     console.log(`Thanks for opening an account,${owner}`);
   }
   // These method are interfaces of the Objectn  also call this api or Public interface
+  getMovement() {
+    return this.movements;
+  }
   deposit(val) {
     this.movements.push(val);
   }
@@ -328,6 +332,8 @@ class Account {
 
 const acc1 = new Account('Jonas', 'Eur', 1111);
 
+acc1._movements.push(250);
+acc1._movements.push(-50);
 acc1.deposit(250);
 acc1.withdraw(140);
 acc1.requestLoan(1000);
