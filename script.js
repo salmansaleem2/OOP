@@ -307,7 +307,6 @@ class Account {
     this._movements = [];
     this.locale = navigator.language;
 
-    console.log(`Thanks for opening an account,${owner}`);
   }
   // These method are interfaces of the Objectn  also call this api or Public interface
   getMovement() {
