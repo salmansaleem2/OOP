@@ -298,43 +298,66 @@
 // jay.introduce();
 // jay.calcAge();
 
+// 1) Public fields
+// 2) Private fields
+// 3) Public methods
+// 4) Private methods
+
 class Account {
+  // 1) Public fields (instances)
+  locale = navigator.language;
+
+  // 2) Private fields (instances)
+  #movements = [];
+  #pin;
+
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
     // Protected property
-    this._pin = pin;
-    this._movements = [];
-    this.locale = navigator.language;
-
+    this.#pin = pin;
+    // this._movements = [];
+    // this.locale = navigator.language;
   }
+
+  // 3) Public methods
+
   // These method are interfaces of the Objectn  also call this api or Public interface
   getMovement() {
-    return this.movements;
+    return this.#movements;
   }
   deposit(val) {
-    this.movements.push(val);
+    this.#movements.push(val);
   }
   withdraw(val) {
     this.deposit(-val);
   }
-  approveLoan(val) {
+  _approveLoan(val) {
     return true;
   }
   requestLoan(val) {
-    if (this.withdraw(val)) {
+    if (this._approveLoan(val)) {
       this.deposit(val);
-      console.log('Load approved');
+      console.log('Loan approved');
     }
+  }
+
+  // 4) Private methods
+  _approveLoan(val) {
+    return true;
   }
 }
 
 const acc1 = new Account('Jonas', 'Eur', 1111);
 
-acc1._movements.push(250);
-acc1._movements.push(-50);
+// acc1._movements.push(250);
+// acc1._movements.push(-50);
 acc1.deposit(250);
 acc1.withdraw(140);
 acc1.requestLoan(1000);
-acc1.approveLoan(1000);
+// acc1.approveLoan(1000);
 console.log(acc1);
+// console.log(acc1.getMovement());
+
+// console.log(acc1.#movements);
+// console.log(acc1.#pin);
