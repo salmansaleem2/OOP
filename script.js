@@ -298,10 +298,10 @@
 // jay.introduce();
 // jay.calcAge();
 
-// 1) Public fields
-// 2) Private fields
-// 3) Public methods
-// 4) Private methods
+// 01) Public fields
+// 02) Private fields
+// 03) Public methods
+// 04) Private methods
 
 class Account {
   // 1) Public fields (instances)
